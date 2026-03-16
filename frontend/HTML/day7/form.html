@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+
+<body>
+    <center>
+        <h1>country creator</h1>
+        <form method="post">
+            <table>
+                <tr>
+                    <td><label>name of country:</label></td>
+                    <td><input type="text" placeholder="all capital"></td>
+                </tr>
+
+                <tr>
+                    <td><label>type of government:</label></td>
+                    <td>
+                        <input type="radio" name="type">democracy
+                        <input type="radio" name="type">theocracy
+                        <input type="radio" name="type">moanrchy
+                        <input type="radio" name="type">dictatorship
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>population (M)</label></td>
+                    <td>
+                        <input type="number">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label select terrain></label></td>
+                    <select required>
+                        <option value="none" selected disabled>choose</option>
+                        <option value="plains">plains</option>
+                        <option value="mountainous">mountainous</option>
+                        <option value="island">island</option>
+                        <option value="desert">desert</option>
+                    </select>
+                </tr>
+
+                <tr>
+                    <td><label>friendly countries</label></td>
+                    <td>
+                        <input type="checkbox" name="diplomacy">Russia
+                        <input type="checkbox" name="diplomacy">China
+                        <input type="checkbox" name="diplomacy">USA
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="enemy">Enemy Nation</label></td>
+                    <td>
+                        <select id="enemy" name="enemy" required>
+                            <option value="" selected disabled>Select Enemy</option>
+                            <option value="usa">USA (Very Strong, Very Wealthy)</option>
+                            <option value="russia">Russia (Very Strong, Resource-Rich)</option>
+                            <option value="china">China (Strong, Economically Powerful)</option>
+                            <option value="eu">European Union (Wealthy, Strategically United)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Register">
+                        <input type="reset" value="reset">
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </form>
+        <div>
+            <table border="2">
+                <thead>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Country Name</th>
+                        <th>Government</th>
+                        <th>Terrain</th>
+                        <th>Population (M)</th>
+                        <th>Enemy Nation</th>
+                        <th>Capital City</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Nova Terra</td>
+                        <td>demoocracy</td>
+                        <td>Mountainous</td>
+                        <td>45</td>
+                        <td>USA (Very Strong, Very Wealthy)</td>
+                        <td>washington</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Solaria</td>
+                        <td>Monarchy</td>
+                        <td>Coastal</td>
+                        <td>62</td>
+                        <td>China (Strong, Economically Powerful)</td>
+                        <td>shanghai</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </center>
+</body>
+
+
+</html>
