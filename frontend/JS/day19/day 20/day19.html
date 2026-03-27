@@ -1,0 +1,102 @@
+<script>
+    //login
+    let userName = "username"
+    let password = "password"
+    
+    if (userName === "username" && password === "password") {
+        console.log("Login successful")
+    } else {
+        console.log("Login failed")
+    }
+
+    //grades
+    let grade = 85
+
+    if (grade >= 90) {
+        console.log("A")
+    } else if (grade >= 75) {
+        console.log("B")
+    } else if (grade >= 50) {
+        console.log("C")
+    } else {
+        console.log("Failed")
+    }
+
+    //leap year
+    let year = 2020
+
+    if(year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
+        console.log(year + " is a leap year")
+    } else {
+        console.log(year + " is not a leap year")
+    }
+
+    //divisible check
+    let number = 15
+    
+
+    if (number % 3 === 0 && number % 5 === 0) {
+        console.log(number + " is divisible by both 3 and 5")
+    } else {
+        console.log(number + " is not divisible by both 3 and 5")
+    }
+
+    if (number % 3 === 0 && number % 5 !== 0) {
+        console.log(number + " is divisible by 3 only")
+    } else {
+        console.log(number + " is not divisible by 3")
+    }
+
+    if (number % 5 === 0 && number % 3 !== 0) {
+        console.log(number + " is divisible by 5 only")
+    } else {
+        console.log(number + " is not divisible by 5")
+    }
+
+    //discount calculation
+    let originalPrice = 10000
+
+    if (originalPrice > 1000) {
+        let discount = originalPrice * 0.1
+        let finalPrice = originalPrice - discount
+        console.log("Final price after discount: " + finalPrice)
+    } else {
+        console.log("No discount applied. Final price: " + originalPrice)
+    }
+
+    //temperature check
+    let temperature = 30
+    if (temperature > 30) {
+        console.log("hot")
+    } else if (temperature >= 20 && temperature <= 30) {
+        console.log("warm")
+    } else {
+        console.log("cold")
+    }
+
+    //character check
+    let char = 'A'
+    if (char == char.toUpperCase() && char !== char.toLowerCase()) {
+        console.log(char + " is an uppercase letter")
+    } else if (char == char.toLowerCase() && char !== char.toUpperCase()) {
+        console.log(char + " is a lowercase letter")
+    } else {
+        console.log(char + " is a special character")
+    }
+
+    //number check
+    let num = 22
+    if (num >= 10 && num <=50) {
+        console.log(num + " is between 10 and 50")
+    } else {
+        console.log(num + " is not between 10 and 50")
+    }
+
+    //bonus
+    let bonus = 100
+    if (bonus % 2 === 0 && bonus > 10 || bonus % 5 === 0 ) {
+        console.log(bonus + " is even and greater than 10")
+    } else {
+        console.log(bonus + " is not divisible by 5")
+    }
+</script>
