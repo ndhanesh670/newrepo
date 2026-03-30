@@ -1,0 +1,110 @@
+<script>
+    //nested 
+    const arr1 = [{ user: { data: ["Dany", { age: 20 }] } }];
+    console.log(arr1[0].user.data[1].age);
+
+    const arr2 = [{ car: { info: ["BMW", { speed: 200 }] } }];
+    console.log(arr2[0].car.info[1].speed);
+
+    const arr3 = [{ game: { stats: ["WuWa", { score: 999 }] } }];
+    console.log(arr3[0].game.stats[1].score);
+
+    const arr4 = [{ phone: { specs: ["Android", { ram: "8GB" }] } }];
+    console.log(arr4[0].phone.specs[1].ram);
+
+    const arr5 = [{ bank: { acc: ["SBI", { balance: 5000 }] } }];
+    console.log(arr5[0].bank.acc[1].balance);
+
+    //mixed
+    const arr6 = [{ data: [false, "world", { value: 42 }] }];
+    console.log(arr6[0].data[2].value);
+
+    const arr7 = [{ mix: [true, 200, { level: "medium" }, "ok"] }];
+    console.log(arr7[0].mix[2].level);
+
+    const arr8 = [{ info: ["yes", { score: 75 }, false] }];
+    console.log(arr8[0].info[1].score);
+
+    const arr9 = [{ items: [30, { name: "pencil" }, "eraser"] }];
+    console.log(arr9[0].items[1].name);
+
+    const arr10 = [{ values: [0, { mid: 15 }, "end", true] }];
+    console.log(arr10[0].values[1].mid);
+
+
+    //function
+    function fn1() {
+        const arr = [{ game: { data: ["WuWa", { fps: 60 }] } }];
+        console.log(arr[0].game.data[1].fps);
+    }
+
+    function fn2() {
+        const arr = [{ pc: { specs: ["RTX3060Ti", { vram: "8GB" }] } }];
+        console.log(arr[0].pc.specs[1].vram);
+    }
+
+    function fn3() {
+        const arr = [{ wuwa: { stats: ["player", { level: 45 }] } }];
+        console.log(arr[0].wuwa.stats[1].level);
+    }
+
+    function fn4() {
+        const arr = [{ system: { config: ["Windows", { ram: "16GB" }] } }];
+        console.log(arr[0].system.config[1].ram);
+    }
+
+    function fn5() {
+        const arr = [{ gpu: { info: ["NVIDIA", { temp: 70 }] } }];
+        console.log(arr[0].gpu.info[1].temp);
+    }
+
+    //anonymous
+    const fn6 = function (x) { return x + 6; };
+    const fn7 = function (x) { return x * 2; };
+    const fn8 = function (x) { return x - 3; };
+    const fn9 = function (x) { return x ** 2; };
+    const fn10 = function (x) { return x % 4; };
+    const fn11 = function (x) { return x * x + 1; };
+
+    let num = 2;
+    console.log(fn6(num));
+    console.log(fn7(num));
+    console.log(fn8(num));
+    console.log(fn9(num));
+    console.log(fn10(num));
+    console.log(fn11(num));
+
+
+    //arrow 
+    const fn12 = x => x * 3;
+    const fn13 = x => x - 7;
+    const fn14 = x => x ** 2;
+    const fn15 = x => x % 5;
+    const fn16 = x => x + 11;
+
+
+    console.log(fn11(5));
+    console.log(fn12(5));
+    console.log(fn13(5));
+    console.log(fn14(5));
+    console.log(fn15(5));
+    console.log(fn16(5));
+
+
+    //other ways to access objects
+    const obj1 = { name: "Dany", age: 22 };
+
+    console.log(obj1["name"]);
+
+    let key = "age";
+    console.log(obj1[key]);
+
+
+    const obj2 = { gpu: "RTX 3060", storage: "1TB" };
+
+    const { gpu, storage } = obj2;
+
+    console.log(gpu);
+    console.log(storage);
+
+</script>
