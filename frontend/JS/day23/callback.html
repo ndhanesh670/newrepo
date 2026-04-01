@@ -1,0 +1,159 @@
+<script>
+    //callback1
+    const sayhello = () => {
+        console.log("Hello");
+    }
+    const callFunction = (callback) => {
+        callback();
+    }
+    callFunction(sayhello);
+
+    //add
+    const calculate = (num1, num2, callback) => {
+
+        return callback(num1, num2);
+    }
+
+    const add = (x, y) => {
+        return x + y;
+    };
+    const mult = (x, y) => {
+        return x * y;
+    };
+    console.log(calculate(5, 10, add));
+    console.log(calculate(5, 10, mult));
+
+    //even
+    const isEven = (num, callback) => {
+        return callback(num);
+    }
+    const even = (x) => {
+        return x % 2 === 0;
+    }
+    console.log(isEven(5, even));
+    console.log(isEven(6, even));
+
+    //greeting
+    const greet = (name, callback) => {
+        return callback(name);
+    }
+    const greeting = (x) => {
+        return 'welcome ' + x;
+    }
+    console.log(greet('dan', greeting));
+
+    //array callback
+    let arr = [10, 20, 30];
+    const arrCall = (index, callback) => {
+        return callback(index);
+    }
+    const getElement = (i) => {
+        return arr[i];
+    }
+    console.log(arrCall(0, getElement));
+    console.log(arrCall(1, getElement));
+    console.log(arrCall(2, getElement));
+
+    //filter
+    let arr1 = [1, 2, 3, 4, 5,];
+
+    const filterArray = (arr1, callback) => {
+        return callback(arr1);
+    }
+    let result = [];
+    const evenFilter = (x) => {
+        for (let i = 0; i < x.length; i++) {
+            if (x[i] % 2 === 0) {
+                result.push(x[i]);
+            }
+        }
+        return result;
+    }
+    console.log(filterArray(arr1, evenFilter));
+
+    //closure
+    const outer = () => {
+        let count = 0;
+        return inner = () => {
+            count++;
+            console.log(count);
+        }
+
+    }
+    const counter = outer();
+    counter();
+    counter();
+
+    //private variable
+    const privateCounter = () => {
+        let secret = 100;
+        return inner = () => {
+            console.log(secret);
+        }
+    }
+    const getSecret = privateCounter();
+    getSecret();
+
+    //add
+    const addClosure = () => {
+        let sum = 0;
+        return inner = (x, y) => {
+            sum = x + y;
+            console.log(sum);
+        }
+    }
+    const add1 = addClosure();
+    add1(10, 10);
+
+    //multiply closure
+    const mulClosure = () => {
+        let product = 1;
+        return inner = (x, y) => {
+            product = x * y;
+            console.log(product);
+        }
+    }
+    const mul1 = mulClosure();
+    mul1(10, 10);
+
+    //message closure
+    const messageClosure = () => {
+        let message = "";
+        return inner = (x) => {
+            console.log(x);
+        }
+    }
+    const getMessage = messageClosure();
+    getMessage("hello");
+
+    //username closure
+    const usernameClosure = () => {
+        let username = "dhanesh";
+        return inner = () => {
+            console.log("user:" + username + " logged in");
+        }
+    }
+    const getUsername = usernameClosure();
+    getUsername();
+
+    //reset counter using object
+    const resetClosure = () => {
+        let count1 = 0;
+        return {
+            increment: () => {
+                count1++;
+                console.log(count1);
+            },
+            reset: () => {
+                count1 = 0;
+                console.log("counter reset: " + count1);
+            }
+        }
+    }
+    const counter1 = resetClosure();
+    counter1.increment();
+    counter1.increment();
+    counter1.reset();
+    counter1.increment();
+
+</script>
