@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body  style="background-color: white;">
+    <button data-color="blue">Change Background to Blue</button>
+    <button data-color="red">Change Background to Red</button>
+    <button data-color="green">Change Background to Green</button>
+
+    <script>
+        let buttons = document.querySelectorAll("button");
+        let body = document.body
+
+        for (let i=0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", function () {
+                let color = buttons[i].getAttribute("data-color");
+                body.style.backgroundColor = color;
+            });
+        }
+    </script>
+    
+</body>
+</html>
