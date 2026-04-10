@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+
+
 </head>
+
 <body>
 
     <button id="logout">logout</a></button>
-    
+
 
 
 
@@ -16,14 +21,15 @@
 
     <script>
         let logout = document.getElementById("logout")
-        logout.addEventListener("click" ,() => {
+        logout.addEventListener("click", () => {
             localStorage.removeItem("loggedIn")
             window.location.href = "login.html"
         })
         let user = JSON.parse(localStorage.getItem("loggedIn"))
-        if (!user){
+        if (!user) {
             window.location.href = "login.html"
         }
     </script>
 </body>
+
 </html>

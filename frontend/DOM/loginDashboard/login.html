@@ -1,29 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>local storage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .card {
+      background: #111827;
+      padding: 35px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #374151;
+      background: #1f2937;
+      color: white;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: #3b82f6;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .link a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
+
 <body>
 
+  <div class="card">
+    <h2>Login</h2>
+
     <form id="loginForm">
-        <input type="text" id="loginName" placeholder="Enter your name">
-        <input type="text"  id="loginPassword" placeholder="Enter your password">
-        <button type="submit">Login</button>
-        <button><a href="register.html">move to register</a></button>
+      <div class="input-group">
+        <input id="loginName" type="text" placeholder="Username">
+      </div>
 
-        <p id="output"></p>
+      <div class="input-group">
+        <input id="loginPassword" type="password" placeholder="Password">
+      </div>
 
+      <button type="submit">Login</button>
     </form>
-    
 
+    <div class="link">
+      <p>Don't have an account? <a href="register.html">Register</a></p>
+    </div>
+  </div>
 
+  <script src="script2.js"></script>
 
-
-
-
-
-    <script src="script2.js"></script>
 </body>
+
 </html>

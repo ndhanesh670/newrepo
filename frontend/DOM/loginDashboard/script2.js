@@ -1,4 +1,3 @@
-
 let loginForm = document.getElementById("loginForm");
 let inputName = document.getElementById("loginName");
 let inputPassword = document.getElementById("loginPassword");
@@ -16,14 +15,12 @@ loginForm.addEventListener("submit", (e) => {
 
     let users = JSON.parse(localStorage.getItem("userinfo")) || [];
 
-    let found = users.find(user => user.name === name && user.password === pass);
+    let found = users.find(user => user.username === name && user.userpassword === pass);
 
     if (found) {
-        localStorage.setItem("loggedIn", name);
+        localStorage.setItem("loggedIn", JSON.stringify({ username: name }));
         window.location.href = "dashboard.html";
     } else {
-        alert("Invaid credentials");
+        alert("Invalid credentials");
     }
-
-
 });
