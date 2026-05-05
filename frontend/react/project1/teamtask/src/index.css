@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-slate-950 text-slate-50 antialiased;
+  background-image: radial-gradient(circle at top center, #1e1b4b 0%, #020617 100%);
+  background-attachment: fixed;
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.glass-card {
+  @apply bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-700/50 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-600;
+}
