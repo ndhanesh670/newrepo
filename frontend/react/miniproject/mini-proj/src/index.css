@@ -1,1 +1,190 @@
-@import 'tailwindcss'
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;600;700;800;900&display=swap');
+@import 'tailwindcss';
+
+/* ─── Root Tokens ─────────────────────────────────────── */
+:root {
+  --cyan:  #22d3ee;
+  --red:   #ef4444;
+  --purple:#a855f7;
+  --neon-glow: 0 0 20px rgba(34,211,238,.35), 0 0 40px rgba(34,211,238,.15);
+  --red-glow:  0 0 20px rgba(239,68,68,.4),   0 0 40px rgba(239,68,68,.2);
+  --card-radius: 14px;
+  --transition-base: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ─── Smooth global theme transition ─────────────────── */
+*, *::before, *::after {
+  transition: background-color var(--transition-base),
+              border-color     var(--transition-base),
+              color            0.3s ease;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Custom Scrollbar ────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--cyan), var(--purple));
+  border-radius: 10px;
+}
+
+/* ─── Hero Carousel Slide Transitions ────────────────── */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes bgPan {
+  from { opacity: 0; transform: scale(1.15); }
+  to   { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.hero-content-enter { animation: heroFadeIn 0.6s ease forwards; }
+.hero-bg-enter      { animation: bgPan     0.8s ease forwards; }
+.fade-in-up         { animation: fadeInUp  0.5s ease forwards; }
+
+/* ─── Shimmer Skeleton ────────────────────────────────── */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,.04) 25%,
+    rgba(255,255,255,.10) 50%,
+    rgba(255,255,255,.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+/* ─── Card Neon Glow on Hover ────────────────────────── */
+.card-hover {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 0 0 1.5px var(--cyan),
+              0 8px 40px rgba(34,211,238,.22),
+              0 2px 16px rgba(0,0,0,.6);
+  transform: translateY(-6px) scale(1.03);
+}
+
+/* ─── Neon Text Glow ─────────────────────────────────── */
+.neon-text { text-shadow: 0 0 20px rgba(34,211,238,.8), 0 0 40px rgba(34,211,238,.4); }
+.red-text  { text-shadow: 0 0 20px rgba(239,68,68,.8),  0 0 40px rgba(239,68,68,.4); }
+
+/* ─── Glass Card ─────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.glass-light {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* ─── Dot indicators ─────────────────────────────────── */
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+.dot.active {
+  background: var(--cyan);
+  width: 24px;
+  border-radius: 4px;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+/* ─── Genre pill ─────────────────────────────────────── */
+.genre-pill {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .4px;
+  background: rgba(34,211,238,.12);
+  color: var(--cyan);
+  border: 1px solid rgba(34,211,238,.25);
+}
+
+/* ─── Button primary ─────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .3px;
+  background: linear-gradient(135deg, var(--cyan), #0891b2);
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: none;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: var(--neon-glow);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+  border: 1px solid rgba(255,255,255,.15);
+  text-decoration: none;
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,.18);
+  transform: scale(1.03);
+}
+
+/* ─── Score badge ────────────────────────────────────── */
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  background: rgba(251,191,36,.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251,191,36,.25);
+}

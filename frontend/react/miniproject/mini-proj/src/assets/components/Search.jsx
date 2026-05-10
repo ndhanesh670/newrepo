@@ -1,14 +1,15 @@
-import { useSearchParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { createContext, useContext, useState } from "react";
 
-const Search = () => {
-    const [searchParams] = useSearchParams()
-    const find = searchParams.get('q')
+const SearchContext = createContext();
+
+export const SearchProvider = ({ children }) => {
+  const [search, setSearch] = useState("");
+
   return (
-    <>
-    c
-    </>
-  )
-}
+    <SearchContext.Provider value={{ search, setSearch }}>
+      {children}
+    </SearchContext.Provider>
+  );
+};
 
-export default Search
+export const useSearch = () => useContext(SearchContext);
