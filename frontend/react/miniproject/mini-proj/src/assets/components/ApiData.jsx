@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useTheme } from "./Theme";
 import { useSearch } from "./Search";
 import { ChevronLeft, ChevronRight, Play, Info, Star } from "lucide-react";
-
+import AnimeCard from "./AnimeCard";
 /* ─── Skeleton Card ─────────────────────────────────── */
 const SkeletonCard = () => (
   <div className="w-full rounded-[14px] overflow-hidden bg-zinc-900 animate-pulse">
@@ -13,73 +13,6 @@ const SkeletonCard = () => (
       <div className="shimmer h-3 w-1/2 rounded bg-zinc-800" />
     </div>
   </div>
-);
-
-/* ─── Anime Card ─────────────────────────────────────── */
-const AnimeCard = ({ anime, isDark }) => (
-  <Link to={`/anime/${anime.mal_id}`} className="block group">
-    <div
-      className={`card-hover rounded-[14px] overflow-hidden transition-all duration-400 cursor-pointer ${
-        isDark ? "bg-zinc-900" : "bg-white shadow-md"
-      }`}
-    >
-      {/* Image */}
-      <div className="relative overflow-hidden h-72">
-        <img
-          src={anime.images.jpg.large_image_url}
-          alt={anime.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          loading="lazy"
-        />
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-          <span className="text-xs text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1">
-            <Play size={11} fill="currentColor" />
-            View Details
-          </span>
-        </div>
-        {/* Score badge */}
-        {anime.score && (
-          <div className="absolute top-2.5 right-2.5 score-badge text-xs">
-            <Star size={10} fill="#fbbf24" />
-            {anime.score}
-          </div>
-        )}
-        {/* Rank badge */}
-        {anime.rank && (
-          <div className="absolute top-2.5 left-2.5 px-2 py-1 rounded-md text-[10px] font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 backdrop-blur-sm">
-            #{anime.rank}
-          </div>
-        )}
-      </div>
-
-      {/* Info */}
-      <div className="p-3.5">
-        <h3
-          className={`font-bold text-sm leading-snug line-clamp-2 mb-1.5 ${
-            isDark ? "text-white" : "text-gray-900"
-          }`}
-          title={anime.title}
-        >
-          {anime.title}
-        </h3>
-        <div className="flex items-center gap-2 flex-wrap">
-          {anime.type && (
-            <span className="genre-pill">{anime.type}</span>
-          )}
-          {anime.episodes && (
-            <span
-              className={`text-[11px] font-medium ${
-                isDark ? "text-gray-500" : "text-gray-400"
-              }`}
-            >
-              {anime.episodes} eps
-            </span>
-          )}
-        </div>
-      </div>
-    </div>
-  </Link>
 );
 
 /* ─── Hero Carousel ──────────────────────────────────── */
@@ -149,8 +82,8 @@ const HeroCarousel = ({ hero }) => {
       ))}
 
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/55 to-transparent z-10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/20 z-10" />
+      <div className="absolute inset-x-0 top-0 -bottom-2 bg-gradient-to-r from-black/95 via-black/55 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 -bottom-2 bg-gradient-to-t from-zinc-950 via-zinc-950/10 to-transparent z-10 pointer-events-none" />
 
       {/* ── Hero Content ── */}
       <div
@@ -277,6 +210,7 @@ const ApiData = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [sortOption, setSortOption] = useState("rank");
 
   /* Intersection Observer sentinel */
   const sentinelRef = useRef(null);
@@ -342,13 +276,34 @@ const ApiData = () => {
     return () => observer.disconnect();
   }, [fetchFeed, hasMore, isSearching, page]);
 
-  /* ── Filtered list ── */
-  const filtered = useMemo(() => {
-    if (!search.trim()) return feed;
-    return feed.filter((a) =>
-      a.title.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [feed, search]);
+  /* ── Filtered & Sorted list ── */
+  const filteredAndSorted = useMemo(() => {
+    let result = feed;
+    if (search.trim()) {
+      result = result.filter((a) =>
+        a.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    
+    // Sort
+    result = [...result];
+    switch (sortOption) {
+      case "score":
+        result.sort((a, b) => (b.score || 0) - (a.score || 0));
+        break;
+      case "title":
+        result.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "episodes":
+        result.sort((a, b) => (b.episodes || 0) - (a.episodes || 0));
+        break;
+      case "rank":
+      default:
+        result.sort((a, b) => (a.rank || 9999) - (b.rank || 9999));
+        break;
+    }
+    return result;
+  }, [feed, search, sortOption]);
 
   return (
     <div
@@ -360,7 +315,7 @@ const ApiData = () => {
       {!isSearching && <HeroCarousel hero={hero} />}
 
       {/* ── Section Heading ── */}
-      <div className={`px-6 md:px-12 pb-4 flex items-center justify-between ${
+      <div className={`px-6 md:px-12 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4 ${
         isSearching ? "pt-24" : "pt-8"
       }`}>
         <div>
@@ -374,7 +329,7 @@ const ApiData = () => {
                 <span className="text-cyan-400 neon-text">"{search}"</span>
               </h2>
               <p className={`text-sm ${isDark ? "text-gray-500" : "text-gray-400"}`}>
-                {filtered.length} result{filtered.length !== 1 ? "s" : ""} found
+                {filteredAndSorted.length} result{filteredAndSorted.length !== 1 ? "s" : ""} found
               </p>
             </div>
           ) : (
@@ -388,11 +343,31 @@ const ApiData = () => {
           )}
         </div>
 
-        {!isSearching && (
-          <span className={`text-sm font-medium ${isDark ? "text-gray-500" : "text-gray-400"}`}>
-            {feed.length} loaded
-          </span>
-        )}
+        <div className="flex items-center gap-4 fade-in-up">
+          <div className="flex items-center gap-2">
+            <span className={`text-sm font-semibold ${isDark ? "text-gray-400" : "text-gray-500"}`}>Sort by:</span>
+            <select
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className={`text-sm px-3 py-1.5 rounded-xl border outline-none cursor-pointer transition-all ${
+                isDark
+                  ? "bg-zinc-900 border-white/10 text-white focus:border-cyan-500"
+                  : "bg-white border-gray-200 text-gray-900 focus:border-cyan-400"
+              }`}
+            >
+              <option value="rank">Top Ranked</option>
+              <option value="score">Highest Rated</option>
+              <option value="title">Name (A-Z)</option>
+              <option value="episodes">Most Episodes</option>
+            </select>
+          </div>
+          
+          {!isSearching && (
+            <span className={`text-sm font-medium whitespace-nowrap ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+              {feed.length} loaded
+            </span>
+          )}
+        </div>
       </div>
 
       {/* ── Card Grid ── */}
@@ -408,7 +383,7 @@ const ApiData = () => {
         )}
 
         {/* Empty state */}
-        {!initialLoading && filtered.length === 0 && (
+        {!initialLoading && filteredAndSorted.length === 0 && (
           <div className="flex flex-col items-center justify-center py-28 fade-in-up">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-xl font-bold mb-2">No results found</h3>
@@ -419,9 +394,9 @@ const ApiData = () => {
         )}
 
         {/* Anime grid */}
-        {!initialLoading && filtered.length > 0 && (
+        {!initialLoading && filteredAndSorted.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-            {filtered.map((anime) => (
+            {filteredAndSorted.map((anime) => (
               <AnimeCard key={anime.mal_id} anime={anime} isDark={isDark} />
             ))}
           </div>

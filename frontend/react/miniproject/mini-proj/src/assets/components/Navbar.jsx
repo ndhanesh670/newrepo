@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "./Theme";
-import { Sun, Moon, Search, X, Tv2 } from "lucide-react";
+import { Sun, Moon, Search, X, Tv2, User, LogOut } from "lucide-react";
 import { useSearch } from "./Search";
+import { useAuth } from "./Auth";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const { search, setSearch } = useSearch();
+  const { currentUser, logout, openAuth } = useAuth();
   const isDark = theme === "dark";
 
   const [scrolled, setScrolled] = useState(false);
@@ -56,6 +58,17 @@ const Navbar = () => {
           Home
         </Link>
 
+        {currentUser && (
+          <Link
+            to="/favourites"
+            className={`text-sm font-semibold transition-colors duration-200 hidden md:block ${
+              isDark ? "text-gray-300 hover:text-red-400" : "text-gray-600 hover:text-red-500"
+            }`}
+          >
+            Favourites
+          </Link>
+        )}
+
         {/* Search Input */}
         <div
           className={`relative flex items-center rounded-xl transition-all duration-300 ${
@@ -90,6 +103,30 @@ const Navbar = () => {
             </button>
           )}
         </div>
+
+        {/* Auth / Profile */}
+        {currentUser ? (
+          <div className="flex items-center gap-2">
+            <span className={`text-sm font-medium hidden md:block ${isDark ? "text-gray-300" : "text-gray-600"}`}>
+              {currentUser.username}
+            </span>
+            <button
+              onClick={logout}
+              title="Logout"
+              className={`p-2 rounded-xl transition-all duration-300 hover:bg-red-500/10 text-red-500`}
+            >
+              <LogOut size={18} />
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={openAuth}
+            className="btn-primary !py-1.5 !px-4 !text-sm !gap-1.5"
+          >
+            <User size={15} />
+            Login
+          </button>
+        )}
 
         {/* Theme Toggle */}
         <button

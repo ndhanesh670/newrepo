@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTheme } from "./Theme";
 import {
-  Star, Tv, Clock, Calendar, ArrowLeft, Play, Award, Users,
+  Star, Tv, Clock, Calendar, ArrowLeft, Play, Award, Users, Heart
 } from "lucide-react";
+import { useFavourites } from "./FavouritesContext";
+import { useAuth } from "./Auth";
+import Comments from "./Comments";
 
 /* ─── Loading Skeleton ───────────────────────────────── */
 const DetailsSkeleton = ({ isDark }) => (
@@ -55,6 +58,9 @@ const Details = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
+  const { isFav, toggleFav } = useFavourites();
+  const { currentUser, openAuth } = useAuth();
+
   const [data, setData]           = useState(null);
   const [showTrailer, setShowTrailer] = useState(false);
   const modalRef = useRef(null);
@@ -87,6 +93,16 @@ const Details = () => {
   const genres = data.genres?.map((g) => g.name) || [];
   const studios = data.studios?.map((s) => s.name).join(", ") || "—";
 
+  const favorite = isFav(data.mal_id);
+
+  const handleFav = () => {
+    if (!currentUser) {
+      openAuth();
+      return;
+    }
+    toggleFav(data);
+  };
+
   return (
     <div
       className={`min-h-screen transition-colors duration-500 ${
@@ -104,9 +120,9 @@ const Details = () => {
           }}
         />
         {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent" />
+        <div className="absolute inset-x-0 top-0 -bottom-2 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent pointer-events-none" />
         <div
-          className={`absolute inset-0 ${isDark ? "bg-black/40" : "bg-white/30"}`}
+          className={`absolute inset-x-0 top-0 -bottom-2 pointer-events-none ${isDark ? "bg-black/40" : "bg-white/30"}`}
         />
       </div>
 
@@ -224,7 +240,16 @@ const Details = () => {
                 <ArrowLeft size={15} />
                 Go Back
               </button>
+              <button
+                onClick={handleFav}
+                className={`btn-secondary ${favorite ? "!border-red-500/50 !text-red-500 !bg-red-500/10 hover:!bg-red-500/20" : ""}`}
+              >
+                <Heart size={15} className={favorite ? "fill-red-500" : ""} />
+                {favorite ? "Favourited" : "Add to Favourites"}
+              </button>
             </div>
+            
+            <Comments animeId={id} />
           </div>
         </div>
       </div>
