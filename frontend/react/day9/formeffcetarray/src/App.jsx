@@ -1,15 +1,15 @@
-import React from 'react'
 import Navbar from './components/Navbar'
-import Register from './pages/Register'
-import { Route, Routes } from 'react-router-dom'
+import FetchData from './components/FetchData'
+import Register from './components/Register'
+import MapData from './components/MapData'
 
 const App = () => {
   return (
     <>
-    <Navbar/>
-    <Routes>
-      <Route path='/' element={<Register/>}/>
-    </Routes>
+      <Navbar />
+      <FetchData />
+      <Register />
+      <MapData />
     </>
   )
 }
