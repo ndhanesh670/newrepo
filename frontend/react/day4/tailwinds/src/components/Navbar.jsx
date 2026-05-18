@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const Navbar = () => {
   return (
-    <div>Navbar</div>
-  )
-}
+    <nav className="navbar">
+      <img src="/logo.png" alt="logo" className="logo" />
+      <h2>My Website</h2>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;
