@@ -1,0 +1,40 @@
+<script>
+  let arr = [1, 2, 2, 3, 4, 4, 5];
+
+  let result = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    let found = false;
+
+    for (let j = 0; j < result.length; j++) {
+      if (arr[i] === result[j]) {
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      result.push(arr[i]);
+    }
+  }
+
+  console.log(result);
+
+
+
+  ///////////////
+
+  let str = "madam";
+
+  let rev = "";
+
+  for (let i = str.length - 1; i >= 0; i--) {
+    rev = rev + str[i];
+  }
+
+  if (str === rev) {
+    console.log("Palindrome");
+  } else {
+    console.log("Not Palindrome");
+  }
+</script>
