@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mini App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-5">
+
+    <h1 class="text-2xl font-bold mb-4">Register</h1>
+
+    <input id="name" placeholder="username" class="border p-2">
+    <input id="pass" placeholder="password" class="border p-2">
+    <button onclick="register()" class="bg-blue-500 text-white px-4 py-2">
+        Register
+    </button>
+
+    <br><br>
+
+    <h1 class="text-2xl font-bold mb-4">Login</h1>
+
+    <input id="loginName" placeholder="username" class="border p-2">
+    <input id="loginPass" placeholder="password" class="border p-2">
+    <button onclick="login()" class="bg-green-500 text-white px-4 py-2">
+        Login
+    </button>
+
+    <h2 id="dashboard" class="text-xl mt-5"></h2>
+
+    <h1 class="text-2xl font-bold mt-8">Products</h1>
+    <div id="products" class="grid grid-cols-3 gap-4 mt-4"></div>
+
+<script>
+    const register = () => {
+        let username = document.getElementById("name").value
+        let password = document.getElementById("pass").value
+
+        localStorage.setItem("username", username)
+        localStorage.setItem("password", password)
+
+        alert("Registered")
+    }
+
+    const login = () => {
+        let username = document.getElementById("loginName").value
+        let password = document.getElementById("loginPass").value
+
+        let savedUser = localStorage.getItem("username")
+        let savedPass = localStorage.getItem("password")
+
+        if(username == savedUser && password == savedPass){
+            document.getElementById("dashboard").innerText = "Welcome to Dashboard"
+        } else {
+            alert("Invalid Login")
+        }
+    }
+
+    const getProducts = async () => {
+        let res = await fetch("https://dummyjson.com/products")
+        let data = await res.json()
+
+        let cards = data.products.map((item) => `
+            <div class="border p-4 rounded">
+                <img src="${item.thumbnail}" class="w-full h-40 object-cover">
+                <h2 class="font-bold">${item.title}</h2>
+                <p>$${item.price}</p>
+            </div>
+        `)
+
+        document.getElementById("products").innerHTML = cards.join("")
+    }
+
+    getProducts()
+</script>
+
+</body>
+</html>
